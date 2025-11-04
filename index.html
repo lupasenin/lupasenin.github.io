@@ -35,9 +35,24 @@
       justify-content: center;
       text-align: center;
     }
+    .profile-pic {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      animation: fadeInProfile 1.2s ease forwards;
+    }
+    @keyframes fadeInProfile {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
     .hero h1 {
       font-size: 3rem;
       font-weight: 600;
+      margin-top: 20px;
       margin-bottom: 10px;
     }
     .hero p {
@@ -90,7 +105,6 @@
     .card .info {
       padding: 15px;
     }
-    /* Lightbox Overlay */
     .lightbox-overlay {
       position: fixed;
       top: 0;
@@ -171,6 +185,7 @@
 </head>
 <body>
   <section class="hero">
+    <img src="/assets/profile.jpg" alt="Profile Picture" class="profile-pic">
     <h1>Lupa Senin</h1>
     <p>Designer & Motion Artist</p>
     <a href="#contact" class="btn">Hire Me</a>
@@ -215,7 +230,6 @@
     © <script>document.write(new Date().getFullYear());</script> skidrow.art — All rights reserved.
   </footer>
 
-  <!-- Lightbox Container -->
   <div id="lightboxContainer" class="lightbox-overlay"></div>
 
   <script>
