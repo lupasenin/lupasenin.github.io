@@ -8,15 +8,23 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #fff;
       color: #000;
       margin: 0;
       padding: 0;
+      transition: background-color 1s ease;
+      background-color: #ffffff;
     }
     section {
       padding: 80px 20px;
       max-width: 1000px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .hero {
       min-height: 100vh;
@@ -80,27 +88,18 @@
     .card .info {
       padding: 15px;
     }
-    .contact-form input, .contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-    }
-    .contact-form button {
-      width: 100%;
+    .email-button {
+      display: inline-block;
       background-color: #007BFF;
       color: #fff;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 20px;
       transition: 0.3s;
     }
-    .contact-form button:hover {
+    .email-button:hover {
       background-color: #0056b3;
     }
     footer {
@@ -115,7 +114,7 @@
 <body>
   <section class="hero">
     <h1>Lupa Senin</h1>
-    <p>Graphic Designer & Design Enthusiast</p>
+    <p>Designer & Motion Artist</p>
     <a href="#contact" class="btn">Hire Me</a>
   </section>
 
@@ -158,17 +157,33 @@
     </div>
   </section>
 
- <section id="contact">
-<h2>Get in Touch</h2>
-<p style="text-align:center; color:#666; max-width:600px; margin:auto;">Tertarik bekerja sama? Klik tombol di bawah ini untuk mengirim email langsung.</p>
-<div style="text-align:center; margin-top:30px;">
-<a href="mailto:nandataufik0@gmail.com" class="email-button">Email Me</a>
-</div>
-</section>
+  <section id="contact">
+    <h2>Get in Touch</h2>
+    <p style="text-align:center; color:#666; max-width:600px; margin:auto;">Tertarik bekerja sama? Klik tombol di bawah ini untuk mengirim email langsung.</p>
+    <div style="text-align:center; margin-top:30px;">
+      <a href="mailto:nandataufik0@gmail.com" class="email-button">Email Me</a>
+    </div>
+  </section>
 
+  <footer>
+    © <script>document.write(new Date().getFullYear());</script> skidrow.art — All rights reserved.
+  </footer>
 
-<footer>
-© <script>document.write(new Date().getFullYear());</script> skidrow.art — All rights reserved.
-</footer>
+  <script>
+    const sections = document.querySelectorAll('section');
+    const colors = ['#ffffff', '#f5f7fa', '#e8f0ff', '#f0f0f0', '#e6ebff'];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          const index = Array.from(sections).indexOf(entry.target);
+          document.body.style.backgroundColor = colors[index % colors.length];
+        }
+      });
+    }, { threshold: 0.3 });
+
+    sections.forEach(section => observer.observe(section));
+  </script>
 </body>
 </html>
