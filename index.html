@@ -13,6 +13,7 @@
       padding: 0;
       transition: background-color 1s ease;
       background-color: #ffffff;
+      overflow-x: hidden;
     }
     section {
       padding: 80px 20px;
@@ -75,6 +76,7 @@
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: 0.3s;
+      cursor: pointer;
     }
     .card:hover {
       box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
@@ -87,6 +89,66 @@
     }
     .card .info {
       padding: 15px;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255,255,255,0.95);
+      backdrop-filter: blur(6px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      overflow-y: auto;
+      padding: 60px 20px;
+    }
+    .overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .overlay-content {
+      max-width: 900px;
+      margin: auto;
+      position: relative;
+      animation: fadeIn 0.6s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: #333;
+    }
+    .arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #007BFF;
+      cursor: pointer;
+      user-select: none;
+    }
+    .arrow.left { left: 20px; }
+    .arrow.right { right: 20px; }
+    .project-item {
+      margin-bottom: 30px;
+    }
+    .project-item img, .project-item iframe {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .desc {
+      background-color: rgba(0, 123, 255, 0.1);
+      padding: 10px 15px;
+      border-radius: 8px;
     }
     .email-button {
       display: inline-block;
@@ -123,35 +185,23 @@
     <p>Saya adalah seorang designer dan motion artist dengan passion untuk menciptakan visual yang kuat dan berkarakter. Berpengalaman dalam bidang logo & branding, social media design, clothing design, serta video editing dan motion graphic.</p>
   </section>
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <ul>
-      <li><strong>2025 – Sekarang:</strong> Creative at Yuritama Visionary Solutions Artist | Kebumen</li>
-      <li><strong>2023 – 2024:</strong> Graphic Designer at YABE (Roemah Martha Tilaar & Gombong Huis) | Kebumen</li>
-      <li><strong>2023 – 2023:</strong> Video Editor at Malindo Kuliner Indonesia | Kebumen</li>
-      <li><strong>2022 – 2022:</strong> Freelance Videographer on IVBL at NBA Indonesia | Jakarta</li>
-      <li><strong>2022 – 2022:</strong> Graphic Designer at Esports Social (Remote) | Based in Dubai, UAE</li>
-      <li><strong>2023 – 2023:</strong> Graphic Designer at Tukutuku Organizer | Kebumen</li>
-    </ul>
-  </section>
-
   <section id="portfolio">
     <h2>Portfolio</h2>
     <div class="portfolio-grid">
-      <div class="card">
-        <img src="VOL 2 LAYOUT.png" alt="Logo & Branding">
+      <div class="card" onclick="openOverlay(0)">
+        <img src="/assets/logo-branding.jpg" alt="Logo & Branding">
         <div class="info"><h3>Logo & Branding</h3></div>
       </div>
-      <div class="card">
+      <div class="card" onclick="openOverlay(1)">
         <img src="/assets/social-media.jpg" alt="Social Media Design">
         <div class="info"><h3>Social Media Design</h3></div>
       </div>
-      <div class="card">
+      <div class="card" onclick="openOverlay(2)">
         <img src="/assets/clothing-design.jpg" alt="Clothing Design">
         <div class="info"><h3>Clothing Design</h3></div>
       </div>
-      <div class="card">
-        <iframe src="https://www.youtube.com/embed/example" title="Motion / Video Editing" allowfullscreen></iframe>
+      <div class="card" onclick="openOverlay(3)">
+        <img src="/assets/motion.jpg" alt="Motion / Video Editing">
         <div class="info"><h3>Motion / Video Editing</h3></div>
       </div>
     </div>
@@ -169,10 +219,15 @@
     © <script>document.write(new Date().getFullYear());</script> skidrow.art — All rights reserved.
   </footer>
 
-  <script>
-    const sections = document.querySelectorAll('section');
-    const colors = ['#ffffff', '#f5f7fa', '#e8f0ff', '#f0f0f0', '#e6ebff'];
+  <!-- Dynamic Overlays -->
+  <div id="overlayContainer"></div>
 
+  <script>
+    const overlayContainer = document.getElementById('overlayContainer');
+    const sections = document.querySelectorAll('section');
+    const colors = ['#ffffff', '#f5f7fa', '#e8f0ff', '#f0f0f0'];
+
+    // Fade on scroll
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -182,8 +237,70 @@
         }
       });
     }, { threshold: 0.3 });
-
     sections.forEach(section => observer.observe(section));
+
+    // Dummy data per category
+    const projects = [
+      { title: 'Logo & Branding', items: [
+        {img:'/assets/sample1.jpg',desc:'Project branding untuk klien X, fokus pada minimal identity.'},
+        {img:'/assets/sample2.jpg',desc:'Logo redesign untuk brand lifestyle modern.'},
+        {img:'/assets/sample3.jpg',desc:'Konsep branding monokrom elegan untuk produk digital.'},
+        {img:'/assets/sample4.jpg',desc:'Eksplorasi logo geometrik futuristik.'}
+      ]},
+      { title: 'Social Media Design', items: [
+        {img:'/assets/sample5.jpg',desc:'Feed campaign awareness dengan tone biru putih.'},
+        {img:'/assets/sample6.jpg',desc:'Carousel edukatif dengan gaya flat minimal.'},
+        {img:'/assets/sample7.jpg',desc:'Instagram ads layout untuk klien retail fashion.'},
+        {img:'/assets/sample8.jpg',desc:'Desain posting motion teaser video pendek.'}
+      ]},
+      { title: 'Clothing Design', items: [
+        {img:'/assets/sample9.jpg',desc:'T-shirt graphic bold typography untuk koleksi streetwear.'},
+        {img:'/assets/sample10.jpg',desc:'Desain hoodie monochrome dengan konsep glitch art.'},
+        {img:'/assets/sample11.jpg',desc:'Koleksi capsule minimalist line art.'},
+        {img:'/assets/sample12.jpg',desc:'Desain merchandise eksklusif kolaborasi lokal.'}
+      ]},
+      { title: 'Motion / Video Editing', items: [
+        {iframe:'https://www.youtube.com/embed/example1',desc:'Opening motion dengan animasi kinetic typography.'},
+        {iframe:'https://www.youtube.com/embed/example2',desc:'Video explainer produk berdurasi 30 detik.'},
+        {iframe:'https://www.youtube.com/embed/example3',desc:'Teaser event dengan transisi dynamic cut.'},
+        {iframe:'https://www.youtube.com/embed/example4',desc:'Motion ident untuk channel YouTube kreatif.'}
+      ]}
+    ];
+
+    let currentIndex = 0;
+
+    function openOverlay(index){
+      currentIndex = index;
+      renderOverlay();
+    }
+
+    function renderOverlay(){
+      const data = projects[currentIndex];
+      overlayContainer.innerHTML = `
+        <div class="overlay active">
+          <div class="overlay-content">
+            <span class="close-btn" onclick="closeOverlay()">&times;</span>
+            <h2>${data.title}</h2>
+            ${data.items.map(item => `
+              <div class='project-item'>
+                ${item.img ? `<img src='${item.img}' alt='${item.desc}'>` : `<iframe src='${item.iframe}' allowfullscreen></iframe>`}
+                <p class='desc'>${item.desc}</p>
+              </div>
+            `).join('')}
+          </div>
+          <span class="arrow left" onclick="navigateOverlay(-1)">&#10094;</span>
+          <span class="arrow right" onclick="navigateOverlay(1)">&#10095;</span>
+        </div>`;
+    }
+
+    function closeOverlay(){
+      overlayContainer.innerHTML = '';
+    }
+
+    function navigateOverlay(dir){
+      currentIndex = (currentIndex + dir + projects.length) % projects.length;
+      renderOverlay();
+    }
   </script>
 </body>
 </html>
