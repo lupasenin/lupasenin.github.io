@@ -160,6 +160,7 @@
       pointer-events: none;
     }
 
+    /* Lightbox Styling */
     .lightbox-overlay {
       position: fixed;
       top: 0;
@@ -202,19 +203,48 @@
       color: #333;
       cursor: pointer;
     }
+
+    /* Grid untuk isi lightbox */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      align-items: start;
+    }
+
     .project-item {
-      margin-bottom: 30px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 20px;
     }
+
     .project-item img, .project-item iframe {
-      width: 100%;
+      width: 50%;
       border-radius: 10px;
-      margin-bottom: 10px;
+      object-fit: cover;
     }
+
     .desc {
+      width: 50%;
       background-color: rgba(0, 123, 255, 0.1);
       padding: 10px 15px;
       border-radius: 8px;
+      text-align: left;
+      font-size: 0.95rem;
+      color: #333;
     }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      .project-item {
+        flex-direction: column;
+      }
+      .project-item img, .desc {
+        width: 100%;
+      }
+    }
+
     .email-button {
       display: inline-block;
       background-color: #007BFF;
@@ -265,7 +295,7 @@
           <img src="AWAYDAY-RECAP_02.png" alt="Sudut Gawang 1">
           <img src="UNBEATEN_01.png" alt="Sudut Gawang 2">
           <img src="UNBEATEN_02.png" alt="Sudut Gawang 3">
-          <img src="UNBEATEN_03.png" alt="Sudut Gawang 4">
+          <img src="UNBEATEN_04.png" alt="Sudut Gawang 4">
           <div class="overlay"></div>
         </div>
         <div class="info"><h3>Social Media Design</h3></div>
@@ -346,12 +376,14 @@
         <div class='lightbox-content'>
           <span class='close-btn' onclick='closeLightbox()'>&times;</span>
           <h2>${data.title}</h2>
-          ${data.items.map(item => `
-            <div class='project-item'>
-              ${item.img ? `<img src='${item.img}' alt='${item.desc}'>` : `<iframe src='${item.iframe}' allowfullscreen></iframe>`}
-              <p class='desc'>${item.desc}</p>
-            </div>
-          `).join('')}
+          <div class='project-grid'>
+            ${data.items.map(item => `
+              <div class='project-item'>
+                ${item.img ? `<img src='${item.img}' alt='${item.desc}'>` : `<iframe src='${item.iframe}' allowfullscreen></iframe>`}
+                <p class='desc'>${item.desc}</p>
+              </div>
+            `).join('')}
+          </div>
         </div>
       `;
       lightboxContainer.classList.add('active');
