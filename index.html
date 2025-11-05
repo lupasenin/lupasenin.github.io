@@ -132,11 +132,11 @@
       padding-left:10px;max-width:95%;
     }
 
-    /* Lightbox grid 4 kolom proporsional */
+    /* Lightbox grid (25% lebih besar) */
     .project-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
       justify-content: center;
       align-items: center;
       padding-left: 10px;
@@ -144,15 +144,15 @@
     }
     .project-grid img {
       width: 100%;
-      max-width: 240px;
+      max-width: 300px;
       border-radius: 10px;
       object-fit: cover;
       transition: transform 0.3s ease;
     }
-    .project-grid img:hover { transform: scale(1.04); }
+    .project-grid img:hover { transform: scale(1.05); }
 
     @media(max-width:768px){
-      .project-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .project-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
       .project-grid img { max-width: 100%; }
     }
 
@@ -292,101 +292,3 @@
   </script>
 </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lupa Senin | skidrow.art</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #000;
-      margin: 0;
-      padding: 0;
-      transition: background-color 1s ease;
-      background-color: #ffffff;
-      overflow-x: hidden;
-    }
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    section.visible { opacity: 1; transform: translateY(0); }
-
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      opacity: 0;
-      animation: fadeInProfile 1.2s ease forwards;
-    }
-    @keyframes fadeInProfile {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero h1 { font-size: 3rem; font-weight: 600; margin-top: 20px; margin-bottom: 10px; }
-    .hero p { font-size: 1.2rem; color: #555; margin-bottom: 20px; }
-
-    .btn {
-      background-color: #007BFF;
-      color: #fff;
-      padding: 12px 30px;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    .btn:hover { background-color: #0056b3; }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    p { color: #333; line-height: 1.6; }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .card:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
-    .card img { width: 100%; height: 220px; object-fit: cover; border: none; }
-    .card .info { padding: 15px; }
-
-    /* Slideshow */
-    .card.slideshow { position: relative; }
-    .card.slideshow .slideshow-container { position: relative; width: 100%; height: 220px; overflow: hidden; }
-    .card.slideshow .slideshow-container img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0; animation: fadeSlide 12s infinite;
-    }
-    .card.slideshow .slideshow-container img:nth-child(1){animation-delay:0s;}
-    .card.slideshow .slideshow-container img:nth-child(2){animation-delay:3s;}
-    .card.slideshow .slideshow-container img
