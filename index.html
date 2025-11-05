@@ -105,6 +105,61 @@
     .card .info {
       padding: 15px;
     }
+
+    /* Slideshow khusus Social Media Design */
+    .card.slideshow {
+      position: relative;
+    }
+
+    .card.slideshow .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .card.slideshow .slideshow-container img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fadeSlide 12s infinite;
+    }
+
+    .card.slideshow .slideshow-container img:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .card.slideshow .slideshow-container img:nth-child(2) {
+      animation-delay: 3s;
+    }
+    .card.slideshow .slideshow-container img:nth-child(3) {
+      animation-delay: 6s;
+    }
+    .card.slideshow .slideshow-container img:nth-child(4) {
+      animation-delay: 9s;
+    }
+
+    @keyframes fadeSlide {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      25% { opacity: 1; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .card.slideshow .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.65);
+      pointer-events: none;
+    }
+
     .lightbox-overlay {
       position: fixed;
       top: 0;
@@ -185,7 +240,7 @@
 </head>
 <body>
   <section class="hero">
-   <img src="nandapotrait.png" alt="Nanda Potrait" class="profile-pic">
+    <img src="nandapotrait.png" alt="Nanda Potrait" class="profile-pic">
     <h1>Nanda Taufik Hidayat</h1>
     <p>Graphic Designer</p>
     <a href="#contact" class="btn">Hire Me</a>
@@ -203,14 +258,24 @@
         <img src="/assets/logo-branding.jpg" alt="Logo & Branding">
         <div class="info"><h3>Logo & Branding</h3></div>
       </div>
-      <div class="card" onclick="openLightbox(1)">
-        <img src="/assets/social-media.jpg" alt="Social Media Design">
+
+      <!-- Slideshow Card: Social Media Design -->
+      <div class="card slideshow" onclick="openLightbox(1)">
+        <div class="slideshow-container">
+          <img src="/assets/AWAYDAY-RECAP_02.png" alt="Sudut Gawang 1">
+          <img src="/assets/UNBEATEN_01.png" alt="Sudut Gawang 2">
+          <img src="/assets/UNBEATEN_02.png" alt="Sudut Gawang 3">
+          <img src="/assets/UNBEATEN_04.png" alt="Sudut Gawang 4">
+          <div class="overlay"></div>
+        </div>
         <div class="info"><h3>Social Media Design</h3></div>
       </div>
+
       <div class="card" onclick="openLightbox(2)">
         <img src="/assets/clothing-design.jpg" alt="Clothing Design">
         <div class="info"><h3>Clothing Design</h3></div>
       </div>
+
       <div class="card" onclick="openLightbox(3)">
         <img src="/assets/motion.jpg" alt="Motion / Video Editing">
         <div class="info"><h3>Motion / Video Editing</h3></div>
@@ -256,10 +321,10 @@
         {img:'/assets/sample4.jpg',desc:'Eksplorasi logo geometrik futuristik.'}
       ]},
       { title: 'Social Media Design', items: [
-        {img:'/assets/sample5.jpg',desc:'Feed campaign awareness dengan tone biru putih.'},
-        {img:'/assets/sample6.jpg',desc:'Carousel edukatif dengan gaya flat minimal.'},
-        {img:'/assets/sample7.jpg',desc:'Instagram ads layout untuk klien retail fashion.'},
-        {img:'/assets/sample8.jpg',desc:'Desain posting motion teaser video pendek.'}
+        {img:'/assets/AWAYDAY-RECAP_02.png',desc:'Konten Sudut Gawang: Awayday recap visual feed.'},
+        {img:'/assets/UNBEATEN_01.png',desc:'Konten Sudut Gawang: Unbeaten series 01.'},
+        {img:'/assets/UNBEATEN_02.png',desc:'Konten Sudut Gawang: Unbeaten series 02.'},
+        {img:'/assets/UNBEATEN_04.png',desc:'Konten Sudut Gawang: Unbeaten series 04.'}
       ]},
       { title: 'Clothing Design', items: [
         {img:'/assets/sample9.jpg',desc:'T-shirt graphic bold typography untuk koleksi streetwear.'},
@@ -268,10 +333,10 @@
         {img:'/assets/sample12.jpg',desc:'Desain merchandise eksklusif kolaborasi lokal.'}
       ]},
       { title: 'Motion / Video Editing', items: [
-        {iframe:'https://www.youtube.com/embed/example1',desc:'Opening motion dengan animasi kinetic typography.'},
-        {iframe:'https://www.youtube.com/embed/example2',desc:'Video explainer produk berdurasi 30 detik.'},
-        {iframe:'https://www.youtube.com/embed/example3',desc:'Teaser event dengan transisi dynamic cut.'},
-        {iframe:'https://www.youtube.com/embed/example4',desc:'Motion ident untuk channel YouTube kreatif.'}
+        {img:'/assets/motion-thumb1.jpg',desc:'Thumbnail video motion - kinetic typography.'},
+        {img:'/assets/motion-thumb2.jpg',desc:'Thumbnail video explainer produk.'},
+        {img:'/assets/motion-thumb3.jpg',desc:'Thumbnail teaser event dynamic cut.'},
+        {img:'/assets/motion-thumb4.jpg',desc:'Thumbnail motion ident YouTube channel.'}
       ]}
     ];
 
