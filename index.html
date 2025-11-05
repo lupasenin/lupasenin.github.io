@@ -33,7 +33,6 @@
       justify-content: center;
       text-align: center;
     }
-
     .profile-pic {
       width: 160px;
       height: 160px;
@@ -62,13 +61,7 @@
     }
     .btn:hover { background-color: #0056b3; }
 
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
+    h2 { font-size: 2rem; font-weight: 600; margin-bottom: 20px; text-align: center; }
     p { color: #333; line-height: 1.6; }
 
     .portfolio-grid {
@@ -76,7 +69,6 @@
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
     }
-
     .card {
       border-radius: 15px;
       overflow: hidden;
@@ -85,10 +77,10 @@
       cursor: pointer;
     }
     .card:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
-    .card img, .card iframe { width: 100%; height: 220px; object-fit: cover; border: none; }
+    .card img { width: 100%; height: 220px; object-fit: cover; border: none; }
     .card .info { padding: 15px; }
 
-    /* Slideshow Social Media Design */
+    /* Slideshow */
     .card.slideshow { position: relative; }
     .card.slideshow .slideshow-container { position: relative; width: 100%; height: 220px; overflow: hidden; }
     .card.slideshow .slideshow-container img {
@@ -103,80 +95,62 @@
       0%{opacity:0;} 5%{opacity:1;} 25%{opacity:1;} 30%{opacity:0;} 100%{opacity:0;}
     }
     .card.slideshow .overlay {
-      position: absolute; top:0; left:0; width:100%; height:100%;
-      background: rgba(255,255,255,0.65); pointer-events:none;
+      position:absolute;top:0;left:0;width:100%;height:100%;
+      background:rgba(255,255,255,0.65);pointer-events:none;
     }
 
     /* Lightbox */
     .lightbox-overlay {
-      position: fixed; top:0; left:0; width:100%; height:100%;
-      background-color: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-      display:flex; justify-content:center; align-items:center;
-      opacity:0; pointer-events:none; transition:opacity 0.4s ease; z-index:999;
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background-color:rgba(0,0,0,0.6);backdrop-filter:blur(4px);
+      display:flex;justify-content:center;align-items:center;
+      opacity:0;pointer-events:none;transition:opacity 0.4s ease;z-index:999;
     }
-    .lightbox-overlay.active { opacity:1; pointer-events:all; }
+    .lightbox-overlay.active { opacity:1;pointer-events:all; }
     .lightbox-content {
-      background-color:#fff; width:80%; max-height:85%; overflow-y:auto;
-      border-radius:16px; padding:40px; position:relative;
-      animation: fadeIn 0.5s ease;
+      background-color:#fff;width:80%;max-height:85%;overflow-y:auto;
+      border-radius:16px;padding:40px;position:relative;animation:fadeIn 0.5s ease;
     }
     @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-
     .close-btn {
-      position:absolute; top:15px; right:20px;
-      font-size:2rem; color:#333; cursor:pointer;
+      position:absolute;top:15px;right:20px;font-size:2rem;color:#333;cursor:pointer;
     }
 
-    /* Subheadline styling */
+    /* Subheadline + deskripsi akun */
     .subheadline {
-      font-size:1.3rem;
-      font-weight:600;
-      margin-top:40px;
-      margin-bottom:10px;
-      color:#007BFF;
-      text-align:left;
-      border-left:4px solid #007BFF;
-      padding-left:10px;
+      font-size:1.3rem;font-weight:600;margin-top:40px;margin-bottom:10px;
+      color:#007BFF;text-align:left;border-left:4px solid #007BFF;padding-left:10px;
     }
-
     .account-desc {
-      font-size:0.95rem;
-      color:#555;
-      margin-bottom:20px;
-      text-align:left;
-      line-height:1.6;
+      font-size:0.95rem;color:#555;margin-bottom:25px;text-align:left;line-height:1.6;
     }
 
-    /* Lightbox grid */
-    .project-grid { display:grid; gap:30px; }
-    .project-item {
-      display:flex; flex-direction:row; align-items:flex-start; gap:20px;
+    /* Lightbox grid 4 kolom */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      justify-items: center;
     }
-    .project-item img, .project-item iframe {
-      width:37.5%; /* scaled down 25% */
-      border-radius:10px;
-      object-fit:cover;
+    .project-grid img {
+      width: 100%;
+      max-width: 220px;
+      border-radius: 10px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
     }
-    .desc {
-      width:62.5%;
-      background-color:rgba(0,123,255,0.1);
-      padding:10px 15px;
-      border-radius:8px;
-      text-align:left;
-      font-size:0.95rem;
-      color:#333;
+    .project-grid img:hover {
+      transform: scale(1.03);
     }
 
     @media(max-width:768px){
-      .project-item{flex-direction:column;}
-      .project-item img,.desc{width:100%;}
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     .email-button {
-      display:inline-block; background-color:#007BFF;
-      color:#fff; padding:14px 32px; border-radius:30px;
-      text-decoration:none; font-weight:500; margin-top:20px;
-      transition:0.3s;
+      display:inline-block;background-color:#007BFF;color:#fff;
+      padding:14px 32px;border-radius:30px;text-decoration:none;
+      font-weight:500;margin-top:20px;transition:0.3s;
     }
     .email-button:hover{background-color:#0056b3;}
     footer{text-align:center;padding:40px 0;font-size:0.9rem;color:#666;background:#f9f9f9;}
@@ -259,28 +233,22 @@
     const projects=[
       { title:'Logo & Branding', groups:[
         { name:'Studio XYZ', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet, lorem nec dictum ultricies, turpis lacus tincidunt ante, a finibus nunc libero et lorem.', items:[
-          {img:'sample1.jpg',desc:'Branding minimal untuk startup kreatif.'},
-          {img:'sample2.jpg',desc:'Logo redesign untuk produk lifestyle.'}
+          'sample1.jpg','sample2.jpg','sample3.jpg','sample4.jpg'
         ]}
       ]},
       { title:'Social Media Design', groups:[
         { name:'Sudut Gawang', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin blandit augue ut metus pretium, eget consequat sapien tincidunt.', items:[
-          {img:'AWAYDAY-RECAP_02.png',desc:'Konten Awayday Recap untuk feed Instagram.'},
-          {img:'UNBEATEN_01.png',desc:'Konten Unbeaten Series part 1 untuk highlight tim.'},
-          {img:'UNBEATEN_02.png',desc:'Konten Unbeaten Series part 2 dengan tone biru putih.'},
-          {img:'UNBEATEN_03.png',desc:'Konten Unbeaten Series part 3 dengan layout modern.'}
+          'AWAYDAY-RECAP_02.png','UNBEATEN_01.png','UNBEATEN_02.png','UNBEATEN_03.png'
         ]}
       ]},
       { title:'Clothing Design', groups:[
         { name:'Local Brand Collab', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed erat ac erat condimentum gravida.', items:[
-          {img:'sample9.jpg',desc:'T-shirt graphic bold typography untuk koleksi streetwear.'},
-          {img:'sample10.jpg',desc:'Desain hoodie monochrome dengan konsep glitch art.'}
+          'sample9.jpg','sample10.jpg','sample11.jpg','sample12.jpg'
         ]}
       ]},
       { title:'Motion / Video Editing', groups:[
         { name:'YouTube Channel', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed vitae magna vel justo gravida tincidunt.', items:[
-          {img:'motion-thumb1.jpg',desc:'Kinetic typography intro untuk channel konten edukasi.'},
-          {img:'motion-thumb2.jpg',desc:'Explainer video berdurasi 30 detik untuk promo produk.'}
+          'motion-thumb1.jpg','motion-thumb2.jpg','motion-thumb3.jpg','motion-thumb4.jpg'
         ]}
       ]}
     ];
@@ -295,12 +263,7 @@
             <h3 class='subheadline'>${group.name}</h3>
             <p class='account-desc'>${group.desc}</p>
             <div class='project-grid'>
-              ${group.items.map(item=>`
-                <div class='project-item'>
-                  <img src='${item.img}' alt='${item.desc}'>
-                  <p class='desc'>${item.desc}</p>
-                </div>
-              `).join('')}
+              ${group.items.map(img=>`<img src='${img}' alt='${group.name}'>`).join('')}
             </div>
           `).join('')}
         </div>`;
