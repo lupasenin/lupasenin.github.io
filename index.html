@@ -1,294 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lupa Senin | skidrow.art</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      color: #000;
-      margin: 0;
-      padding: 0;
-      transition: background-color 1s ease;
-      background-color: #ffffff;
-      overflow-x: hidden;
-    }
-    section {
-      padding: 80px 20px;
-      max-width: 1000px;
-      margin: auto;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 1s ease, transform 1s ease;
-    }
-    section.visible { opacity: 1; transform: translateY(0); }
+<section id="portfolio">
+  <h2>Portfolio</h2>
+  <div class="portfolio-grid">
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    .profile-pic {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-      opacity: 0;
-      animation: fadeInProfile 1.2s ease forwards;
-    }
-    @keyframes fadeInProfile {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero h1 { font-size: 3rem; font-weight: 600; margin-top: 20px; margin-bottom: 10px; }
-    .hero p { font-size: 1.2rem; color: #555; margin-bottom: 20px; }
-
-    .btn {
-      background-color: #007BFF;
-      color: #fff;
-      padding: 12px 30px;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-    .btn:hover { background-color: #0056b3; }
-
-    h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    p { color: #333; line-height: 1.6; }
-
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
-      cursor: pointer;
-    }
-    .card:hover { box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
-    .card img { width: 100%; height: 220px; object-fit: cover; border: none; }
-    .card .info { padding: 15px; }
-
-    /* Slideshow */
-    .card.slideshow { position: relative; }
-    .card.slideshow .slideshow-container { position: relative; width: 100%; height: 220px; overflow: hidden; }
-    .card.slideshow .slideshow-container img {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      object-fit: cover; opacity: 0; animation: fadeSlide 12s infinite;
-    }
-    .card.slideshow .slideshow-container img:nth-child(1){animation-delay:0s;}
-    .card.slideshow .slideshow-container img:nth-child(2){animation-delay:3s;}
-    .card.slideshow .slideshow-container img:nth-child(3){animation-delay:6s;}
-    .card.slideshow .slideshow-container img:nth-child(4){animation-delay:9s;}
-    @keyframes fadeSlide {
-      0%{opacity:0;} 5%{opacity:1;} 25%{opacity:1;} 30%{opacity:0;} 100%{opacity:0;}
-    }
-    .card.slideshow .overlay {
-      position:absolute;top:0;left:0;width:100%;height:100%;
-      background:rgba(255,255,255,0.65);pointer-events:none;
-    }
-
-    /* Lightbox */
-    .lightbox-overlay {
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background-color:rgba(0,0,0,0.6);backdrop-filter:blur(4px);
-      display:flex;justify-content:center;align-items:center;
-      opacity:0;pointer-events:none;transition:opacity 0.4s ease;z-index:999;
-    }
-    .lightbox-overlay.active { opacity:1;pointer-events:all; }
-    .lightbox-content {
-      background-color:#fff;width:80%;max-height:85%;overflow-y:auto;
-      border-radius:16px;padding:40px;position:relative;animation:fadeIn 0.5s ease;
-    }
-    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-    .close-btn {
-      position:absolute;top:15px;right:20px;font-size:2rem;color:#333;cursor:pointer;
-    }
-
-    /* Subheadline + deskripsi akun */
-    .subheadline {
-      font-size:1.3rem;font-weight:600;margin-top:40px;margin-bottom:10px;
-      color:#007BFF;text-align:left;border-left:4px solid #007BFF;padding-left:10px;
-    }
-    .account-desc {
-      font-size:0.95rem;color:#555;margin-bottom:20px;text-align:left;line-height:1.6;
-      padding-left:10px;max-width:95%;
-    }
-
-    /* Lightbox grid */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 8px;
-      justify-content: center;
-      align-items: center;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    .project-grid img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-    .project-grid img:hover { transform: scale(1.05); }
-
-    @media(max-width:768px){
-      .project-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-      .project-grid img { max-width: 100%; }
-    }
-
-    .email-button {
-      display:inline-block;background-color:#007BFF;color:#fff;
-      padding:14px 32px;border-radius:30px;text-decoration:none;
-      font-weight:500;margin-top:20px;transition:0.3s;
-    }
-    .email-button:hover{background-color:#0056b3;}
-    footer{text-align:center;padding:40px 0;font-size:0.9rem;color:#666;background:#f9f9f9;}
-  </style>
-</head>
-<body>
-  <section class="hero">
-    <img src="nandapotrait.png" alt="Nanda Potrait" class="profile-pic">
-    <h1>Nanda Taufik Hidayat</h1>
-    <p>Graphic Designer</p>
-    <a href="#contact" class="btn">Hire Me</a>
-  </section>
-
-  <section id="about">
-    <h2>About Me</h2>
-    <p>Saya adalah seorang designer dan motion artist dengan passion untuk menciptakan visual yang kuat dan berkarakter. Berpengalaman dalam bidang logo & branding, social media design, clothing design, serta video editing dan motion graphic.</p>
-  </section>
-
-  <section id="portfolio">
-    <h2>Portfolio</h2>
-    <div class="portfolio-grid">
-      <div class="card" onclick="openLightbox(0)">
-        <img src="logo-branding.jpg" alt="Logo & Branding">
-        <div class="info"><h3>Logo & Branding</h3></div>
+    <!-- Slideshow Card: Logo & Branding -->
+    <div class="card slideshow" onclick="openLightbox(0)">
+      <div class="slideshow-container">
+        <img src="BELLAVIE-SKETCH.png" alt="Logo & Branding 1">
+        <img src="GO-ON.png" alt="Logo & Branding 2">
+        <img src="KEBUMENAN.png" alt="Logo & Branding 3">
+        <img src="MUNAS-AIPNEMA.png" alt="Logo & Branding 4">
+        <div class="overlay"></div>
       </div>
-
-      <div class="card slideshow" onclick="openLightbox(1)">
-        <div class="slideshow-container">
-          <img src="AWAYDAY-RECAP_02.png" alt="Sudut Gawang 1">
-          <img src="UNBEATEN_01.png" alt="Sudut Gawang 2">
-          <img src="UNBEATEN_02.png" alt="Sudut Gawang 3">
-          <img src="UNBEATEN_03.png" alt="Sudut Gawang 4">
-          <div class="overlay"></div>
-        </div>
-        <div class="info"><h3>Social Media Design</h3></div>
-      </div>
-
-      <div class="card" onclick="openLightbox(2)">
-        <img src="clothing-design.jpg" alt="Clothing Design">
-        <div class="info"><h3>Clothing Design</h3></div>
-      </div>
-
-      <div class="card" onclick="openLightbox(3)">
-        <img src="motion.jpg" alt="Motion / Video Editing">
-        <div class="info"><h3>Motion / Video Editing</h3></div>
-      </div>
+      <div class="info"><h3>Logo & Branding</h3></div>
     </div>
-  </section>
 
-  <section id="contact">
-    <h2>Get in Touch</h2>
-    <p style="text-align:center; color:#666; max-width:600px; margin:auto;">Tertarik bekerja sama? Klik tombol di bawah ini untuk mengirim email langsung.</p>
-    <div style="text-align:center; margin-top:30px;">
-      <a href="mailto:nandataufik0@gmail.com" class="email-button">Email Me</a>
+    <!-- Slideshow Card: Social Media Design -->
+    <div class="card slideshow" onclick="openLightbox(1)">
+      <div class="slideshow-container">
+        <img src="AWAYDAY-RECAP_02.png" alt="Sudut Gawang 1">
+        <img src="UNBEATEN_01.png" alt="Sudut Gawang 2">
+        <img src="UNBEATEN_02.png" alt="Sudut Gawang 3">
+        <img src="UNBEATEN_03.png" alt="Sudut Gawang 4">
+        <div class="overlay"></div>
+      </div>
+      <div class="info"><h3>Social Media Design</h3></div>
     </div>
-  </section>
 
-  <footer>
-    © <script>document.write(new Date().getFullYear());</script> skidrow.art — All rights reserved.
-  </footer>
+    <!-- Static Card: Clothing Design -->
+    <div class="card" onclick="openLightbox(2)">
+      <img src="clothing-design.jpg" alt="Clothing Design">
+      <div class="info"><h3>Clothing Design</h3></div>
+    </div>
 
-  <div id="lightboxContainer" class="lightbox-overlay"></div>
-
-  <script>
-    const lightboxContainer=document.getElementById('lightboxContainer');
-    const sections=document.querySelectorAll('section');
-    const colors=['#ffffff','#f5f7fa','#e8f0ff','#f0f0f0'];
-
-    const observer=new IntersectionObserver(entries=>{
-      entries.forEach(entry=>{
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          const index=Array.from(sections).indexOf(entry.target);
-          document.body.style.backgroundColor=colors[index % colors.length];
-        }
-      });
-    },{threshold:0.3});
-    sections.forEach(section=>observer.observe(section));
-
-    const projects=[
-      { title:'Logo & Branding', groups:[
-        { name:'KEBUMENAN', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet lorem nec dictum ultricies.', items:[
-          'BELLAVIE-SKETCH.png','GO-ON.png','KEBUMENAN.png','MUNAS-AIPNEMA.png'
-        ]}
-      ]},
-      { title:'Social Media Design', groups:[
-        { name:'Sudut Gawang', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin blandit augue ut metus pretium, eget consequat sapien tincidunt.', items:[
-          'AWAYDAY-RECAP_02.png','UNBEATEN_01.png','UNBEATEN_02.png','UNBEATEN_03.png'
-        ]}
-      ]},
-      { title:'Clothing Design', groups:[
-        { name:'Local Brand Collab', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed erat ac erat condimentum gravida.', items:[
-          'sample9.jpg','sample10.jpg','sample11.jpg','sample12.jpg'
-        ]}
-      ]},
-      { title:'Motion / Video Editing', groups:[
-        { name:'YouTube Channel', desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed vitae magna vel justo gravida tincidunt.', items:[
-          'motion-thumb1.jpg','motion-thumb2.jpg','motion-thumb3.jpg','motion-thumb4.jpg'
-        ]}
-      ]}
-    ];
-
-    function openLightbox(index){
-      const data=projects[index];
-      lightboxContainer.innerHTML=`
-        <div class='lightbox-content'>
-          <span class='close-btn' onclick='closeLightbox()'>&times;</span>
-          <h2>${data.title}</h2>
-          ${data.groups.map(group=>`
-            <h3 class='subheadline'>${group.name}</h3>
-            <p class='account-desc'>${group.desc}</p>
-            <div class='project-grid'>
-              ${group.items.map(img=>`<img src='${img}' alt='${group.name}'>`).join('')}
-            </div>
-          `).join('')}
-        </div>`;
-      lightboxContainer.classList.add('active');
-    }
-
-    function closeLightbox(){
-      lightboxContainer.classList.remove('active');
-      setTimeout(()=>lightboxContainer.innerHTML='',300);
-    }
-
-    document.addEventListener('keydown',e=>{
-      if(e.key==='Escape' && lightboxContainer.classList.contains('active')){
-        closeLightbox();
-      }
-    });
-  </script>
-</body>
-</html>
+    <!-- Static Card: Motion / Video Editing -->
+    <div class="card" onclick="openLightbox(3)">
+      <img src="motion.jpg" alt="Motion / Video Editing">
+      <div class="info"><h3>Motion / Video Editing</h3></div>
+    </div>
+  </div>
+</section>
